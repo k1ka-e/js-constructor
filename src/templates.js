@@ -1,7 +1,8 @@
 import {row, col} from './utils'
 
 function title(block) {
-    return row(col(`<h1>${block.value}</h1>`))
+    const tag = block.options.tag ?? 'h1'
+    return row(col(`<${tag}>${block.value}</${tag}>`))
 }
 
 function text(block) {
@@ -9,8 +10,8 @@ function text(block) {
 }
 
 function columns(block) {
-    const html = block.value.map(item => col(item))
-    return row(html.join('')) 
+    const html = block.value.map(col).join('')
+    return row(html) 
 }
 
 function image(block) {

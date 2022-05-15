@@ -117,16 +117,26 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"model.js":[function(require,module,exports) {
+})({"assets/image.png":[function(require,module,exports) {
+module.exports = "/image.90ac9039.png";
+},{}],"model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.model = void 0;
+
+var _image = _interopRequireDefault(require("./assets/image.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var model = [{
   type: 'title',
-  value: 'Hello Word from JS!!!'
+  value: 'Конструктор сайтов на чистом JavaScript',
+  options: {
+    tag: 'h2'
+  }
 }, {
   type: 'text',
   value: 'here we go with some text'
@@ -135,10 +145,10 @@ var model = [{
   value: ['111111111111', '2222222222222', '3333333333333']
 }, {
   type: 'image',
-  value: 'assets/image.png'
+  value: _image.default
 }];
 exports.model = model;
-},{}],"utils.js":[function(require,module,exports) {
+},{"./assets/image.png":"assets/image.png"}],"utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -165,7 +175,10 @@ exports.templates = void 0;
 var _utils = require("./utils");
 
 function title(block) {
-  return (0, _utils.row)((0, _utils.col)("<h1>".concat(block.value, "</h1>")));
+  var _block$options$tag;
+
+  var tag = (_block$options$tag = block.options.tag) !== null && _block$options$tag !== void 0 ? _block$options$tag : 'h1';
+  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")));
 }
 
 function text(block) {
@@ -173,10 +186,8 @@ function text(block) {
 }
 
 function columns(block) {
-  var html = block.value.map(function (item) {
-    return (0, _utils.col)(item);
-  });
-  return (0, _utils.row)(html.join(''));
+  var html = block.value.map(_utils.col).join('');
+  return (0, _utils.row)(html);
 }
 
 function image(block) {

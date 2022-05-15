@@ -20,4 +20,9 @@
     overflow-y: auto;
 }
 
+
+.row>* {
+    width: 800px;
+}
+
 /*# sourceMappingURL=/src.e31bb0bc.css.map */
