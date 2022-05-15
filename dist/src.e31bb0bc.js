@@ -135,7 +135,13 @@ var model = [{
   type: 'title',
   value: 'Конструктор сайтов на чистом JavaScript',
   options: {
-    tag: 'h2'
+    tag: 'h2',
+    styles: {
+      background: 'linear-gradient(to right, #ff0099, #493240)',
+      color: '#fff',
+      padding: '1rem',
+      'text-align': 'center'
+    }
   }
 }, {
   type: 'text',
@@ -155,14 +161,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.col = col;
+exports.css = css;
 exports.row = row;
 
 function row(content) {
-  return "<div class=\"row\">".concat(content, "</div>");
+  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+  return "<div class=\"row\" style= \"".concat(styles, "\">").concat(content, "</div>");
 }
 
 function col(content) {
   return "<div class=\"col-sm\">".concat(content, "</div>");
+}
+
+function css() {
+  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var keys = Object.keys(styles);
+  var array = keys.map(function (key) {
+    return "".concat(key, ": ").concat(styles[key]);
+  });
+  return array.join(';');
 }
 },{}],"templates.js":[function(require,module,exports) {
 "use strict";
@@ -175,10 +192,11 @@ exports.templates = void 0;
 var _utils = require("./utils");
 
 function title(block) {
-  var _block$options$tag;
-
-  var tag = (_block$options$tag = block.options.tag) !== null && _block$options$tag !== void 0 ? _block$options$tag : 'h1';
-  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")));
+  var _block$options = block.options,
+      _block$options$tag = _block$options.tag,
+      tag = _block$options$tag === void 0 ? 'h1' : _block$options$tag,
+      styles = _block$options.styles;
+  return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(block.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
 }
 
 function text(block) {
@@ -319,7 +337,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55678" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64870" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

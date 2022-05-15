@@ -1,8 +1,8 @@
-import {row, col} from './utils'
+import {row, col, css} from './utils'
 
 function title(block) {
-    const tag = block.options.tag ?? 'h1'
-    return row(col(`<${tag}>${block.value}</${tag}>`))
+    const {tag = 'h1', styles} = block.options
+    return row(col(`<${tag}>${block.value}</${tag}>`), css(styles))
 }
 
 function text(block) {
