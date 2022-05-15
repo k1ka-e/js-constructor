@@ -138,6 +138,22 @@ var model = [{
   value: 'assets/image.png'
 }];
 exports.model = model;
+},{}],"utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.col = col;
+exports.row = row;
+
+function row(content) {
+  return "<div class=\"row\">".concat(content, "</div>");
+}
+
+function col(content) {
+  return "<div class=\"col-sm\">".concat(content, "</div>");
+}
 },{}],"templates.js":[function(require,module,exports) {
 "use strict";
 
@@ -146,23 +162,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.templates = void 0;
 
+var _utils = require("./utils");
+
 function title(block) {
-  return "\n    <div class=\"row\">\n        <div class=\"col-sm\">\n            <h1>".concat(block.value, "</h1>\n        </div>\n    </div>\n    ");
+  return (0, _utils.row)((0, _utils.col)("<h1>".concat(block.value, "</h1>")));
 }
 
 function text(block) {
-  return "\n    <div class=\"row\">\n         <div class=\"col-sm\">\n             <p>Lorem ipsum dolor sit amet consectetur, \n                 adipisicing elit. Aspernatur, consectetur.</p>\n         </div>\n     </div>\n    ";
+  return (0, _utils.row)((0, _utils.col)("<p>".concat(block.value, "</p>")));
 }
 
 function columns(block) {
   var html = block.value.map(function (item) {
-    return "<div class=\"col-sm\">".concat(item, "</div>");
+    return (0, _utils.col)(item);
   });
-  return "\n    <div class=\"row\">\n       ".concat(html.join(''), "\n    </div>\n    ");
+  return (0, _utils.row)(html.join(''));
 }
 
 function image(block) {
-  return "\n    <div class=\"row\">\n       <img src=\"".concat(block.value, "\" />\n    </div>\n    ");
+  return (0, _utils.row)("<img src=\"".concat(block.value, "\" />"));
 }
 
 var templates = {
@@ -172,7 +190,7 @@ var templates = {
   columns: columns
 };
 exports.templates = templates;
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./utils":"utils.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
