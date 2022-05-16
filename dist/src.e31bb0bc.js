@@ -144,14 +144,39 @@ var model = [{
     }
   }
 }, {
-  type: 'text',
-  value: 'here we go with some text'
+  type: 'image',
+  value: _image.default,
+  options: {
+    styles: {
+      padding: '2rem 0',
+      display: 'flex',
+      'justify-content': 'center'
+    },
+    imageStyles: {
+      width: '600px',
+      height: 'auto'
+    },
+    alt: 'Это картинка'
+  }
 }, {
   type: 'columns',
-  value: ['111111111111', '2222222222222', '3333333333333']
+  value: ['Приложение на чистом JavaScript, без использования библиотек', 'Узнать как работает принципы SOLID и ООП и JavaScript за один курс', 'JavaScript - это простоб интересно. Научись создавать любые UI своими руками'],
+  options: {
+    styles: {
+      background: 'linear-gradient(to right, #ff0099, #493240)',
+      color: '#fff',
+      padding: '2rem',
+      'font-weight': 'bold'
+    }
+  }
 }, {
-  type: 'image',
-  value: _image.default
+  type: 'text',
+  value: '',
+  options: {
+    background: 'linear-gradient(to right, #f2994a, #f2c94c)',
+    padding: '1rem',
+    'font-weight': 'bold'
+  }
 }];
 exports.model = model;
 },{"./assets/image.png":"assets/image.png"}],"utils.js":[function(require,module,exports) {
@@ -175,11 +200,12 @@ function col(content) {
 
 function css() {
   var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var keys = Object.keys(styles);
-  var array = keys.map(function (key) {
+
+  var toString = function toString(key) {
     return "".concat(key, ": ").concat(styles[key]);
-  });
-  return array.join(';');
+  };
+
+  return Object.keys(styles).map(toString).join(';');
 }
 },{}],"templates.js":[function(require,module,exports) {
 "use strict";
@@ -200,16 +226,21 @@ function title(block) {
 }
 
 function text(block) {
-  return (0, _utils.row)((0, _utils.col)("<p>".concat(block.value, "</p>")));
+  return (0, _utils.row)((0, _utils.col)("<p>".concat(block.value, "</p>")), (0, _utils.css)(block.options.styles));
 }
 
 function columns(block) {
   var html = block.value.map(_utils.col).join('');
-  return (0, _utils.row)(html);
+  return (0, _utils.row)(html, (0, _utils.css)(block.options.styles));
 }
 
 function image(block) {
-  return (0, _utils.row)("<img src=\"".concat(block.value, "\" />"));
+  var _block$options2 = block.options,
+      is = _block$options2.imageStyles,
+      _block$options2$alt = _block$options2.alt,
+      alt = _block$options2$alt === void 0 ? '' : _block$options2$alt,
+      styles = _block$options2.styles;
+  return (0, _utils.row)("<img src=\"".concat(block.value, "\" alt = \"").concat(alt, " style= \"").concat((0, _utils.css)(is), "\"/>"), (0, _utils.css)(styles));
 }
 
 var templates = {
